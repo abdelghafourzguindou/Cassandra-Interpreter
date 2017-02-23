@@ -1,0 +1,12 @@
+{
+   "description": {
+      "columns": {
+         "B": 72,
+         "II": 80
+      },
+      "primaryKeys": [
+         "B"
+      ]
+   },
+   "data": {}
+}

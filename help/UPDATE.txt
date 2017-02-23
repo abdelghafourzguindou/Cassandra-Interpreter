@@ -1,0 +1,21 @@
+/****************************/ UPDATE DATA  /****************************/
+
+---GRAMMAIRE :
+update_statement ::=  UPDATE table_name
+                      [ USING update_parameter ( AND update_parameter )* ]
+                      SET assignment ( ',' assignment )*
+                      WHERE where_clause
+
+assignment       ::=  simple_selection '=' term
+
+---EXEMPLE :                      
+update employe 
+     set first_name = 'zguindou', 
+     FIRST_NAME = 'issam' where 
+     DEPTID =  10;
+
+UPDATE NerdMovies
+   SET director   = 'Joss Whedon',
+       main_actor = 'Nathan Fillion',
+       year       = 2005
+ WHERE movie = 'Serenity';

@@ -1,0 +1,17 @@
+/****************************/ DELETE DATA  /****************************/
+
+---GRAMMAIRE :
+DELETE [ simple_selection ( ',' simple_selection ) ]
+                      FROM table_name
+                      [ USING update_parameter ( AND update_parameter )* ]
+                      WHERE where_clause
+where_clause     ::=  relation ( AND relation )*
+relation         ::=  column_name operator term
+                      '(' column_name ( ',' column_name )* ')' operator tuple_literal
+                      TOKEN '(' column_name ( ',' column_name )* ')' operator term
+operator         ::=  '=' | '<' | '>' | '<=' | '>=' | '!=' | IN | CONTAINS | CONTAINS KEY
+
+
+---EXEMPLE :
+delete from employe where deptid = 'issam';
+DELETE phone FROM Users WHERE userid IN (5,6,7);

@@ -1,0 +1,25 @@
+///// ------------------------  LDD  ------------------------ ///// 
+
+
+/****************************/ CREATE TABLE  /****************************/ 
+
+CREATE TABLE employe ( empID int,  deptID int,  first_name varchar,   last_name varchar,  PRIMARY KEY (empID, deptID) );
+
+/****************************/ ALTER TABLE  /****************************/ 
+
+ALTER TABLE EMPLOYE ALTER last_name type int;
+ALTER TABLE EMPLOYE ADD lasti_name varchar, lasti_name int, profession varchar;
+ALTER TABLE EMPLOYE DROP sex profession age;
+ALTER TABLE EMPLOYE DROP last55_name;
+
+/****************************/ DROP TABLE  /****************************/ 
+
+DROP TABLE CATS;
+
+/****************************/ TRUNCUTE TABLE  /****************************/ 
+
+TRUNCATE TABLE employe;
+
+/****************************/ DROP KEYSPACE  /****************************/
+
+DROP KEYSPACE MYKEYSPACE2;

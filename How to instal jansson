@@ -1,0 +1,10 @@
+sudo apt-get install libjansson-dev
+
+goto janson folder and execute this commande
+
+./configure
+make
+make check
+make install
+
+

@@ -1,0 +1,11 @@
+{
+   "description": {
+      "columns": {
+         "YY": 72
+      },
+      "primaryKeys": [
+         "YY"
+      ]
+   },
+   "data": {}
+}

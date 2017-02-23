@@ -1,0 +1,10 @@
+/****************************/  INSERT DATA  /****************************/
+
+---GRAMMAIRE  :
+insert_statement  ::=  INSERT INTO table_name ( names_values )
+names_values     ::=  names VALUES (value1,value2...)
+
+
+---EXEMPLE    :
+insert into EMPLOYE (deptid,last_name, first_name, empid)  values (8,'zguindou','Abdelghafour', 88);
+insert into EMPLOYE (empid, deptid, first_name, last_name) values (2,57,'GHANOUCH','Issam');

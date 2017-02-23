@@ -1,0 +1,15 @@
+{
+   "description": {
+      "columns": {
+         "KK": 72
+      },
+      "primaryKeys": [
+         "KK"
+      ]
+   },
+   "data": {
+      "Row0": {
+         "KK": "55"
+      }
+   }
+}

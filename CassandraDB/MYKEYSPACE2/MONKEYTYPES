@@ -1,0 +1,14 @@
+{
+   "description": {
+      "columns": {
+         "BLOCK_ID": 79,
+         "SPECIES": 74,
+         "ALIAS": 74,
+         "POPULATION": 81
+      },
+      "primaryKeys": [
+         "BLOCK_ID"
+      ]
+   },
+   "data": {}
+}

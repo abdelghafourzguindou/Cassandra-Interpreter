@@ -1,0 +1,25 @@
+///// ------------------------  LMD  ------------------------ ///// 
+
+
+/****************************/  INSERT DATA  /****************************/
+
+insert into EMPLOYE (deptid,last_name, first_name, empid)  values (8,'zguindou','Abdelghafour', 88);
+insert into EMPLOYE (empid, deptid, first_name, last_name) values (2,57,'GHANOUCH','Issam');
+
+/****************************/ SELECT DATA  /****************************/
+
+select * from employe;
+select * from employe where empid = 2;
+select * from employe where last_name = 'ZGUINDOU';
+select count(*) from employe where deptid IN (199 , 200);
+select count(*) from employe where deptid = 5;
+select deptid, first_name, last_name from employe;
+select deptid, first_name from employe where FIRST_NAME = 'issam' AND deptID > 5  ;
+
+/****************************/ DELETE DATA  /****************************/
+
+delete from employe where deptid = 'issam';
+
+/****************************/ UPDATE DATA  /****************************/
+
+update employe set first_name = 'zguindou', FIRST_NAME = 'issam' where DEPTID =  'issam';

@@ -1,0 +1,10 @@
+/****************************/ DROP KEYSPACE  /****************************/
+
+---GRAMMAIRE :  DROP KEYSPACE [ IF EXISTS ] keyspace_name
+---EXEMPLE :    DROP KEYSPACE MYKEYSPACE2;
+
+
+/****************************/ DROP TABLE  /****************************/ 
+
+---GRAMMAIRE  : DROP TABLE [ IF EXISTS ] table_name
+---EXEMPLE    : DROP TABLE CATS;

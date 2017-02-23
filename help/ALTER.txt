@@ -1,0 +1,14 @@
+/****************************/ ALTER TABLE  /****************************/ 
+
+---GRAMMAIRE :
+alter_table_statement   ::=  ALTER TABLE table_name alter_table_instruction
+alter_table_instruction ::=  ALTER column_name TYPE cql_type
+                             | ADD column_name cql_type ( ',' column_name cql_type )*
+                             | DROP column_name ( column_name )*
+                             | WITH options
+
+---EXEMPLE  :
+ALTER TABLE EMPLOYE ALTER last_name type int;
+ALTER TABLE EMPLOYE ADD lasti_name varchar, lasti_name int, profession varchar;
+ALTER TABLE EMPLOYE DROP sex profession age;
+ALTER TABLE EMPLOYE DROP last55_name;
