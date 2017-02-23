@@ -1,18 +1,18 @@
 {
    "User0": {
-      "user_name": "YY",
-      "user_password": "'YY'",
+      "user_name": "ROOT",
+      "user_password": "'ROOT'",
       "user_option": 146,
       "user_permission": {
-         "permissions": {}
-      }
-   },
-   "User1": {
-      "user_name": "JAMAL",
-      "user_password": "'JAMAL'",
-      "user_option": 146,
-      "user_permission": {
-         "permissions": {}
+         "Keyspaces": {
+            "Permession0": {
+               "permission_name": 49,
+               "On": "MYKEYSPACE1"
+            }
+         },
+         "Tables": {},
+         "Roles": {},
+         "Functions": {}
       }
    }
 }

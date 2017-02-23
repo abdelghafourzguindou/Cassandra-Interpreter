@@ -167,99 +167,97 @@ data_insert_t* create_all_data_insert() {
   data_insert_t* inserting_data = NULL;
   int indice;
 
-  if(Head_Column_Of_Table != NULL)
-  {
+  if(Head_Column_Of_Table != NULL) {
     column_t* cursor = Head_Column_Of_Table;
 
     while(cursor != NULL) {
-
       indice = search_column_indice(cursor->column_name , Head_Column_Actuel);
-            if( indice < 0) // n existe pas , initialiser avec NULL
-            {
-              inserting_data = add_data_insert(create_data_insert(cursor->column_name,"NULL") , inserting_data);
-            }
-            else
-            {
-                inserting_data = add_data_insert(create_data_insert(cursor->column_name, /* On cherche la valeur*/ extract_from_values(Head_liste_Values,indice)) , inserting_data);
-            }
-            cursor = cursor->next;
-          }
-        }
-        return inserting_data;
-      }
-
-      void interpret()
+      if( indice < 0) // n existe pas , initialiser avec NULL
       {
-        switch(CURRENT_PARENT_INST)
-        {
-          case USE_TOKEN        :  interpret_use();        break;
-          case CREATE_TOKEN     :  interpret_create();     break;
-          case ALTER_TOKEN      :  interpret_alter();      break;
-          case DROP_TOKEN       :  interpret_drop();       break;
-          case INSERT_TOKEN     :  interpret_insert();     break;
-          case UPDATE_TOKEN     :  interpret_update();     break;
-          case DELETE_TOKEN     :  interpret_delete();     break;
-          case SELECT_TOKEN     :  interpret_select();     break;
-          case TRUNCATE_TOKEN   :  interpret_truncute();   break;
-          case GRANT_TOKEN      :  interpret_grant();      break;
+        inserting_data = add_data_insert(create_data_insert(cursor->column_name,"NULL") , inserting_data);
+      }
+      else
+      {
+        inserting_data = add_data_insert(create_data_insert(cursor->column_name, /* On cherche la valeur*/ extract_from_values(Head_liste_Values,indice)) , inserting_data);
+      }
+      cursor = cursor->next;
+    }
+  }
+  return inserting_data;
+}
+
+void interpret()
+{
+  switch(CURRENT_PARENT_INST)
+  {
+    case USE_TOKEN        :  interpret_use();        break;
+    case CREATE_TOKEN     :  interpret_create();     break;
+    case ALTER_TOKEN      :  interpret_alter();      break;
+    case DROP_TOKEN       :  interpret_drop();       break;
+    case INSERT_TOKEN     :  interpret_insert();     break;
+    case UPDATE_TOKEN     :  interpret_update();     break;
+    case DELETE_TOKEN     :  interpret_delete();     break;
+    case SELECT_TOKEN     :  interpret_select();     break;
+    case TRUNCATE_TOKEN   :  interpret_truncute();   break;
+    case GRANT_TOKEN      :  interpret_grant();      break;
     default : /*printf("interpret\n");*/ break;
-        }
-      }
+  }
+}
 
-      void interpret_create()
-      {
-        switch(CURRENT_CHILD_INST)
-        {
-          case KEYSPACE_TOKEN     :     interpret_create_keyspace();    break;
-          case TABLE_TOKEN        :     interpret_create_table();       break;
-          case USER_TOKEN         :     interpret_create_user();        break;
-          default : printf("interpret_create\n"); break;
-        }
-      }
+void interpret_create()
+{
+  switch(CURRENT_CHILD_INST)
+  {
+    case KEYSPACE_TOKEN     :     interpret_create_keyspace();    break;
+    case TABLE_TOKEN        :     interpret_create_table();       break;
+    case USER_TOKEN         :     interpret_create_user();        break;
+    default : printf("interpret_create\n"); break;
+  }
+}
 
-      void interpret_create_keyspace() {
+void interpret_create_keyspace() {
 
-        set_current_keyspace_path(current_keyspace_name);
+  set_current_keyspace_path(current_keyspace_name);
 
-        if(!is_exist_keyspace(get_current_keyspace_path()))
-        {
-          mkdir(get_current_keyspace_path(), 0777);
-          printf("Keyspace %s is created\n", current_keyspace_name);
-        }
-        else print_error(KEYSPACE_IS_ALREADY_EXISTS, current_keyspace_name);
+  if(!is_exist_keyspace(get_current_keyspace_path()))
+  {
+    mkdir(get_current_keyspace_path(), 0777);
+    printf("Keyspace %s is created\n", current_keyspace_name);
+  }
+  else print_error(KEYSPACE_IS_ALREADY_EXISTS, current_keyspace_name);
 
   //free(current_keyspace_path);
-        current_keyspace_path[0] = '\0';
-      }
+  current_keyspace_path[0] = '\0';
+}
 
-      void interpret_use() {
+void interpret_use() {
   //free(current_keyspace_path);
-        current_keyspace_path[0] = '\0';
-        set_current_keyspace_path(current_keyspace_name);
-        if(is_exist_keyspace(get_current_keyspace_path()))
-        {
-          keyspace_is_used = true;
-          printf("Keyspace %s is used\n", current_keyspace_name);
-        }
-        else {
-          print_error(KEYSPACE_IS_NOT_EXISTS, current_keyspace_name);
+  current_keyspace_path[0] = '\0';
+  set_current_keyspace_path(current_keyspace_name);
+  if(is_exist_keyspace(get_current_keyspace_path()))
+  {
+    keyspace_is_used = true;
+    printf("Keyspace %s is used\n", current_keyspace_name);
+  }
+  else {
+    print_error(KEYSPACE_IS_NOT_EXISTS, current_keyspace_name);
     //free(current_keyspace_path);
-          current_keyspace_path[0] = '\0';
-        }
-      }
+    current_keyspace_path[0] = '\0';
+  }
+}
 
-      void interpret_create_table() {
+void interpret_create_table() {
 
-        if(keyspace_is_used) {
+  if(keyspace_is_used) {
 
       //printf("---> %s\n", get_current_table_path());
 
-          if(!is_exist_table(get_current_table_path(), 0)) {
+    if(!is_exist_table(get_current_table_path(), 0)) {
 
-            json_t *root        = json_object();
-            json_t *desc        = json_object();
-            json_t *columns     = json_object();
-            json_t *primaryKeys = json_array();
+      json_t *root        = json_object();
+      json_t *desc        = json_object();
+      json_t *columns     = json_object();
+      json_t *primaryKeys = json_array();
 
         //json_object_set_new(root, current_table->table_name, "table");
         json_object_set_new(root, "description", desc);         //head of table file
@@ -279,321 +277,320 @@ data_insert_t* create_all_data_insert() {
         while(current_table->primary_key_list != NULL) {
           json_array_append(primaryKeys, json_string(current_table->primary_key_list->column_name));
           current_table->primary_key_list = current_table->primary_key_list->next;
-        } //while(current_table->primary_key_list != NULL);
+      } //while(current_table->primary_key_list != NULL);
 
-        printf("table %s is created\n", current_table->table_name);
+      printf("table %s is created\n", current_table->table_name);
 
-        FILE* new_table_file = fopen(get_current_table_path(), "w+");
-        json_dumpf(root, new_table_file, JSON_INDENT(3));
+      FILE* new_table_file = fopen(get_current_table_path(), "w+");
+      json_dumpf(root, new_table_file, JSON_INDENT(3));
 
-        fclose(new_table_file);
-        current_table_path[0] = '\0';
+      fclose(new_table_file);
+      current_table_path[0] = '\0';
         //free(current_table_path);
-        free(current_table->column_list);
-        free(current_table);
+      free(current_table->column_list);
+      free(current_table);
 
-        json_decref(columns);
-        json_decref(primaryKeys);
-        json_decref(desc);
-        json_decref(root);
-      }
+      json_decref(columns);
+      json_decref(primaryKeys);
+      json_decref(desc);
+      json_decref(root);
     }
-    else {
-      print_error(UNUSED_KEYSPACE, "");
-    }
-
   }
+  else {
+    print_error(UNUSED_KEYSPACE, "");
+  }
+}
 
-  void interpret_insert() {
-    if(keyspace_is_used) {
+void interpret_insert() {
+  if(keyspace_is_used) {
 
-      json_error_t error;
-      json_t *root;
-      json_t *data;
-      json_t *element;
+    json_error_t error;
+    json_t *root;
+    json_t *data;
+    json_t *element;
 
-      const char *key;
+    const char *key;
 
-      root = json_load_file(get_current_table_path(), 0, &error);
-      data = json_object_get(root, "data");
+    root = json_load_file(get_current_table_path(), 0, &error);
+    data = json_object_get(root, "data");
 
-      data_insert_t *inserting_data = create_all_data_insert();
+    data_insert_t *inserting_data = create_all_data_insert();
       /*
       **controle semontique par primary key pour insert
       **---------------------------------------------------------------------------------------
       */
-      column_t *current_table_primary_keys = load_current_table_primary_keys();
-      bool col_already_exist = false;
+    column_t *current_table_primary_keys = load_current_table_primary_keys();
+    bool col_already_exist = false;
 
-      int primary_key_number  = get_size_column(current_table_primary_keys);
-      int primary_key_counter = 0;
+    int primary_key_number  = get_size_column(current_table_primary_keys);
+    int primary_key_counter = 0;
 
-      data_insert_t *test_row = NULL;
-      while(current_table_primary_keys) {
-        data_insert_t *verify_insert = inserting_data;
-        bool isPrimaryKey = false;
-        while(verify_insert && !isPrimaryKey) {
-          if(!strcmp(verify_insert->key, current_table_primary_keys->column_name)) {
-            isPrimaryKey = true;
-            test_row = add_data_insert(create_data_insert(verify_insert->key, verify_insert->value), test_row);
-          }
-          verify_insert = verify_insert->next;
+    data_insert_t *test_row = NULL;
+    while(current_table_primary_keys) {
+      data_insert_t *verify_insert = inserting_data;
+      bool isPrimaryKey = false;
+      while(verify_insert && !isPrimaryKey) {
+        if(!strcmp(verify_insert->key, current_table_primary_keys->column_name)) {
+          isPrimaryKey = true;
+          test_row = add_data_insert(create_data_insert(verify_insert->key, verify_insert->value), test_row);
         }
-        current_table_primary_keys = current_table_primary_keys->next;
+        verify_insert = verify_insert->next;
       }
-      json_object_foreach(data, key, element) {
-        json_t *data_element = json_object_get(data, key);
-        json_t *e;
-        const char *k;
-        const char *v;
-        data_insert_t *row = test_row;
-        json_object_foreach(data_element, k , e) {
-          if(row) {
-            if(!strcmp(k, row->key)) {
-              v = json_string_value(e);
-              if(!strcmp(v, row->value)) primary_key_counter++;
-              row = row->next;
-            }
+      current_table_primary_keys = current_table_primary_keys->next;
+    }
+    json_object_foreach(data, key, element) {
+      json_t *data_element = json_object_get(data, key);
+      json_t *e;
+      const char *k;
+      const char *v;
+      data_insert_t *row = test_row;
+      json_object_foreach(data_element, k , e) {
+        if(row) {
+          if(!strcmp(k, row->key)) {
+            v = json_string_value(e);
+            if(!strcmp(v, row->value)) primary_key_counter++;
+            row = row->next;
           }
         }
-        if(primary_key_counter == primary_key_number) {
-          col_already_exist = true;
-          break;
-        }
-        else primary_key_counter = 0;
       }
+      if(primary_key_counter == primary_key_number) {
+        col_already_exist = true;
+        break;
+      }
+      else primary_key_counter = 0;
+    }
       //---------------------------------------------------------------------------------------
       //si la colone n'exist pas
-      if(!col_already_exist) {
+    if(!col_already_exist) {
 
-        json_t *newRow = json_object();
-        int row_numbers = (int) json_object_size(data);
-        char row_key[15] = "Row";
-        char c[12];
-        sprintf(c, "%d", row_numbers);
-        strcat(row_key, c);
-        json_object_set_new(data, row_key, newRow);
+      json_t *newRow = json_object();
+      int row_numbers = (int) json_object_size(data);
+      char row_key[15] = "Row";
+      char c[12];
+      sprintf(c, "%d", row_numbers);
+      strcat(row_key, c);
+      json_object_set_new(data, row_key, newRow);
 
-        do {
-          json_t *newCol = json_object();
-          json_object_set_new(newCol, inserting_data->key, json_string(inserting_data->value));
-          json_object_update(newRow, newCol);
-          inserting_data = inserting_data->next;
-        } while(inserting_data != NULL);
-
-        FILE* table_file = fopen(get_current_table_path(), "w+");
-        json_dumpf(root, table_file, JSON_INDENT(3));
-
-        fclose(table_file);
-        printf("row is inserted\n");
-      }
-      //sinon
-      else {
-        print_error(ROW_IS_ALREADY_EXISTS, "");
-      }
-
-      json_decref(data);
-      json_decref(root);
-      free(inserting_data);
-    }
-    else {
-      print_error(UNUSED_KEYSPACE, "");
-    }
-    current_table_path[0] = '\0';
-  }
-
-  void interpret_alter() {
-    switch(CURRENT_CHILD_INST) {
-      case TABLE_TOKEN : interpret_alter_table(); break;
-      case USER_TOKEN  : interpret_alter_user();  break;
-      default : printf("interpret_alter\n"); break;
-    }
-  }
-
-  void interpret_alter_table() {
-    if(keyspace_is_used) {
-      json_error_t error;
-      json_t *root;
-      json_t *desc;
-      json_t *columns;
-      json_t *element;
-      json_t *data;
-      json_t *e;
-      const char *key;
-      const char *k;
-
-      root = json_load_file(get_current_table_path(), 0, &error);
-      if(!root) {
-        fprintf(stderr, "error : root\n");
-        fprintf(stderr, "error : on line %d: %s\n", error.line, error.text);
-    //exit(1);
-      }
-
-      desc = json_object_get(root, "description");
-      if(!json_is_object(desc)) {
-        printf("error loading description");
-      }
-
-      columns = json_object_get(desc, "columns");
-      if(!json_is_object(columns)) {
-        printf("error loading columns");
-      }
-
-      data = json_object_get(root, "data");
-      if(!json_is_object(data)) {
-        printf("error loading data");
-      }
-
-      switch(ALTER_TABLE_ORDER) {
-        case ALTER_TOKEN :
-        ;
-      //Controle de si la colonne a alterer est exist dans data
-        json_t *col;
-        bool isPossible;
-        json_object_foreach(data, key, element) {
-          json_t *obj = json_object_get(data, key);
-          col = json_object_get(obj, current_table->column_list->column_name);
-          if(!strcmp(json_string_value(col), "NULL")) {
-            isPossible = true;
-          }
-          else { 
-            isPossible = false;
-            break;
-          }
-        }
-      //----------------------------
-        if(!isPossible) print_error(ALTER_DENIED, current_table->column_list->column_name);
-        else {
-          json_t *newCol = json_object();
-          json_object_set_new(newCol, current_table->column_list->column_name, json_integer(current_table->column_list->column_type));
-          json_object_update_existing(columns, newCol);
-          printf("column %s is altered\n", current_table->column_list->column_name);
-          printf("table %s is altered\n", current_table->table_name);
-        }
-        break;
-        case ADD_TOKEN :
-        do {
-          json_t *newCol = json_object();
-          json_object_set_new(newCol, current_table->column_list->column_name, json_integer(current_table->column_list->column_type));
-          json_object_update(columns, newCol);
-          printf("new description %s\n", current_table->column_list->column_name);
-
-        //ici pour ajouter les data de cette collone NULL
-          json_object_foreach(data, key, element) {
-            json_t *data_element  = json_object_get(data, key);
-            json_t *new_data      = json_object();
-            json_object_set_new(new_data, current_table->column_list->column_name, json_string("NULL"));
-            json_object_update(data_element, new_data);
-          }
-
-          current_table->column_list = current_table->column_list->next;
-        } while(current_table->column_list != NULL);
-        printf("table %s is altered\n", current_table->table_name);
-        break;
-        case DROP_TOKEN :
-        do {
-          json_object_del(columns, current_table->column_list->column_name);
-          printf("column %s is DROPED\n", current_table->column_list->column_name);
-
-        //ici pour suprimer les data de cette colone
-          json_object_foreach(data, key, element) {
-            json_t *data_element = json_object_get(data, key);
-            json_object_foreach(data_element, k , e) {
-              if(!strcmp(k, current_table->column_list->column_name)) {
-                json_object_del(data_element, k);
-              }
-            }
-          }
-
-          current_table->column_list = current_table->column_list->next;
-        } while(current_table->column_list != NULL);
-        printf("table %s is altered\n", current_table->table_name);
-        break;
-        default : printf("interpret_alter_table\n"); break;
-      }
+      do {
+        json_t *newCol = json_object();
+        json_object_set_new(newCol, inserting_data->key, json_string(inserting_data->value));
+        json_object_update(newRow, newCol);
+        inserting_data = inserting_data->next;
+      } while(inserting_data != NULL);
 
       FILE* table_file = fopen(get_current_table_path(), "w+");
       json_dumpf(root, table_file, JSON_INDENT(3));
-      json_decref(columns);
-      json_decref(desc);
-      json_decref(root);
+
       fclose(table_file);
-      current_table_path[0] = '\0';
+      printf("row is inserted\n");
     }
+      //sinon
     else {
-      print_error(UNUSED_KEYSPACE, "");
+      print_error(ROW_IS_ALREADY_EXISTS, "");
     }
-  }
 
-  void interpret_drop() {
-  //si drop keyspace pas besoine de use keyspace
-    if(CURRENT_CHILD_INST == KEYSPACE_TOKEN) {
-      if(is_exist_keyspace(get_current_keyspace_path())) {
-      //rmdir(get_current_keyspace_path());
-        char this_keyspace[25] = "rm -r ";
-        strcat(this_keyspace, get_current_keyspace_path());
-      //printf("---- %s\n", this_keyspace);
-        system(this_keyspace);
-        printf("keyspace %s is droped\n", get_current_keyspace_path());
-      } else printf("error : keyspace not exist\n");
+    json_decref(data);
+    json_decref(root);
+    free(inserting_data);
+  }
+  else {
+    print_error(UNUSED_KEYSPACE, "");
+  }
+  current_table_path[0] = '\0';
+}
+
+void interpret_alter() {
+  switch(CURRENT_CHILD_INST) {
+    case TABLE_TOKEN : interpret_alter_table(); break;
+    case USER_TOKEN  : interpret_alter_user();  break;
+    default : printf("interpret_alter\n"); break;
+  }
+}
+
+void interpret_alter_table() {
+  if(keyspace_is_used) {
+    json_error_t error;
+    json_t *root;
+    json_t *desc;
+    json_t *columns;
+    json_t *element;
+    json_t *data;
+    json_t *e;
+    const char *key;
+    const char *k;
+
+    root = json_load_file(get_current_table_path(), 0, &error);
+    if(!root) {
+      fprintf(stderr, "error : root\n");
+      fprintf(stderr, "error : on line %d: %s\n", error.line, error.text);
+    //exit(1);
     }
-  //Drop user
-    else if (CURRENT_CHILD_INST == USER_TOKEN)
-    {
-      interpret_drop_user();
+
+    desc = json_object_get(root, "description");
+    if(!json_is_object(desc)) {
+      printf("error loading description");
     }
-  //Drop table ou autre
-    else if(keyspace_is_used) {
-      switch(CURRENT_CHILD_INST) {
-        case TABLE_TOKEN    : interpret_drop_table(); break;
-        default : printf("interpret_drop"); break;
+
+    columns = json_object_get(desc, "columns");
+    if(!json_is_object(columns)) {
+      printf("error loading columns");
+    }
+
+    data = json_object_get(root, "data");
+    if(!json_is_object(data)) {
+      printf("error loading data");
+    }
+
+    switch(ALTER_TABLE_ORDER) {
+      case ALTER_TOKEN :
+      ;
+      //Controle de si la colonne a alterer est exist dans data
+      json_t *col;
+      bool isPossible;
+      json_object_foreach(data, key, element) {
+        json_t *obj = json_object_get(data, key);
+        col = json_object_get(obj, current_table->column_list->column_name);
+        if(!strcmp(json_string_value(col), "NULL")) {
+          isPossible = true;
+        }
+        else { 
+          isPossible = false;
+          break;
+        }
       }
-    } else {
-      print_error(UNUSED_KEYSPACE, "");
-    }
-  }
+      //----------------------------
+      if(!isPossible) print_error(ALTER_DENIED, current_table->column_list->column_name);
+      else {
+        json_t *newCol = json_object();
+        json_object_set_new(newCol, current_table->column_list->column_name, json_integer(current_table->column_list->column_type));
+        json_object_update_existing(columns, newCol);
+        printf("column %s is altered\n", current_table->column_list->column_name);
+        printf("table %s is altered\n", current_table->table_name);
+      }
+      break;
+      case ADD_TOKEN :
+      do {
+        json_t *newCol = json_object();
+        json_object_set_new(newCol, current_table->column_list->column_name, json_integer(current_table->column_list->column_type));
+        json_object_update(columns, newCol);
+        printf("new description %s\n", current_table->column_list->column_name);
 
-  void interpret_drop_table() {
-    if(remove(get_current_table_path()) == -1) {
-      perror("error : table can\'t droped");
+        //ici pour ajouter les data de cette collone NULL
+        json_object_foreach(data, key, element) {
+          json_t *data_element  = json_object_get(data, key);
+          json_t *new_data      = json_object();
+          json_object_set_new(new_data, current_table->column_list->column_name, json_string("NULL"));
+          json_object_update(data_element, new_data);
+        }
+
+        current_table->column_list = current_table->column_list->next;
+      } while(current_table->column_list != NULL);
+      printf("table %s is altered\n", current_table->table_name);
+      break;
+      case DROP_TOKEN :
+      do {
+        json_object_del(columns, current_table->column_list->column_name);
+        printf("column %s is DROPED\n", current_table->column_list->column_name);
+
+        //ici pour suprimer les data de cette colone
+        json_object_foreach(data, key, element) {
+          json_t *data_element = json_object_get(data, key);
+          json_object_foreach(data_element, k , e) {
+            if(!strcmp(k, current_table->column_list->column_name)) {
+              json_object_del(data_element, k);
+            }
+          }
+        }
+
+        current_table->column_list = current_table->column_list->next;
+      } while(current_table->column_list != NULL);
+      printf("table %s is altered\n", current_table->table_name);
+      break;
+      default : printf("interpret_alter_table\n"); break;
     }
-    else printf("\ntable %s is droped\n", get_current_table_path());
+
+    FILE* table_file = fopen(get_current_table_path(), "w+");
+    json_dumpf(root, table_file, JSON_INDENT(3));
+    json_decref(columns);
+    json_decref(desc);
+    json_decref(root);
+    fclose(table_file);
     current_table_path[0] = '\0';
   }
+  else {
+    print_error(UNUSED_KEYSPACE, "");
+  }
+}
 
-  void interpret_update() {
-    if(keyspace_is_used) {
+void interpret_drop() {
+  //si drop keyspace pas besoine de use keyspace
+  if(CURRENT_CHILD_INST == KEYSPACE_TOKEN) {
+    if(is_exist_keyspace(get_current_keyspace_path())) {
+      //rmdir(get_current_keyspace_path());
+      char this_keyspace[25] = "rm -r ";
+      strcat(this_keyspace, get_current_keyspace_path());
+      //printf("---- %s\n", this_keyspace);
+      system(this_keyspace);
+      printf("keyspace %s is droped\n", get_current_keyspace_path());
+    } else printf("error : keyspace not exist\n");
+  }
+  //Drop user
+  else if (CURRENT_CHILD_INST == USER_TOKEN)
+  {
+    interpret_drop_user();
+  }
+  //Drop table ou autre
+  else if(keyspace_is_used) {
+    switch(CURRENT_CHILD_INST) {
+      case TABLE_TOKEN    : interpret_drop_table(); break;
+      default : printf("interpret_drop"); break;
+    }
+  } else {
+    print_error(UNUSED_KEYSPACE, "");
+  }
+}
 
-      json_error_t error;
-      json_t *root;
-      json_t *data;
+void interpret_drop_table() {
+  if(remove(get_current_table_path()) == -1) {
+    perror("error : table can\'t droped");
+  }
+  else printf("\ntable %s is droped\n", get_current_table_path());
+  current_table_path[0] = '\0';
+}
 
-      root = json_load_file(get_current_table_path(), 0, &error);
-      if(!root) {
-        fprintf(stderr, "error : root\n");
-        fprintf(stderr, "error : on line %d: %s\n", error.line, error.text);
+void interpret_update() {
+  if(keyspace_is_used) {
+
+    json_error_t error;
+    json_t *root;
+    json_t *data;
+
+    root = json_load_file(get_current_table_path(), 0, &error);
+    if(!root) {
+      fprintf(stderr, "error : root\n");
+      fprintf(stderr, "error : on line %d: %s\n", error.line, error.text);
      //exit(1);
-      }
-      data = json_object_get(root, "data");
-      if(!json_is_object(data)) {
-        printf("error loading description");
-      }
+    }
+    data = json_object_get(root, "data");
+    if(!json_is_object(data)) {
+      printf("error loading description");
+    }
 
-      json_t *element;
-      json_t *e;
-      json_t *ee;
-      const char *key;
-      const char *k;
-      const char *v;
-      const char *kk;
+    json_t *element;
+    json_t *e;
+    json_t *ee;
+    const char *key;
+    const char *k;
+    const char *v;
+    const char *kk;
 
-      json_t *selectedData = select_rows_where(data);
+    json_t *selectedData = select_rows_where(data);
 
-      json_object_foreach(data, key, element) {
-        json_object_foreach(selectedData, k, e) {
-          if(!strcmp(key, k)) {
-            json_t *data_element = json_object_get(data, key);
-            json_object_foreach(data_element, kk, ee) {
+    json_object_foreach(data, key, element) {
+      json_object_foreach(selectedData, k, e) {
+        if(!strcmp(key, k)) {
+          json_t *data_element = json_object_get(data, key);
+          json_object_foreach(data_element, kk, ee) {
             data_insert_t *inData = updating_data; //pour conserver le updating_data
             while(inData) {
               json_t *newUpdateObj = json_object();
@@ -1048,7 +1045,6 @@ void interpret_create_user() {
   if(!u_exist) {
 
     json_t *new_User    = json_object();
-    json_t *permissions = json_object();
     json_t *on          = json_object();
 
     char n_User[15] = "User";
@@ -1059,8 +1055,11 @@ void interpret_create_user() {
     json_object_set_new(new_User,     "user_name",      json_string (current_user->user_name));
     json_object_set_new(new_User,     "user_password",  json_string (current_user->user_password));
     json_object_set_new(new_User,     "user_option",    json_integer(current_user->user_option));
-    json_object_set_new(new_User,     "user_permission",permissions);
-    json_object_set_new(permissions,  "permissions",    json_object());
+    json_object_set_new(new_User,     "user_permission", on);
+    json_object_set_new(on, "Keyspaces",  json_object());
+    json_object_set_new(on, "Tables",     json_object());
+    json_object_set_new(on, "Roles",      json_object());
+    json_object_set_new(on, "Functions",  json_object());
 
     FILE* f_User = fopen(u_Path, "w+");
     json_dumpf(r_User, f_User, JSON_INDENT(3));
@@ -1180,27 +1179,34 @@ void interpret_grant() {
   const char *ki_User;
 
   bool u_exist = false;
-
   json_object_foreach(r_User, k_User, e_User) {
     json_object_foreach(e_User, ki_User, i_User) {
       if(!strcmp(ki_User, "user_name")) {
-        if(!strcmp(json_string_value(i_User), current_user->user_name)) {
+        if(!strcmp(json_string_value(i_User), current_grant->user_name)) {
           u_exist = true;
-          char n_Perm[15] = "Permession";
-          char c[3];
-          sprintf(c, "%d", (int)json_object_size(r_User));
-          strcat(n_Perm, c);
-          json_t *permissions = json_object_get(e_User, "permissions");
-          json_t *permission  = json_object();
+          json_t *permissions = json_object_get(e_User, "user_permission");
           json_t *desc        = json_object();
           json_t *on          = json_object();
-          json_object_set_new(permission, n_Perm, desc);
-          json_object_set_new(desc, "permission_name", json_integer(current_grant->permission_name));
-          json_object_set_new(desc, "On", on);
-          /*json_object_set_new(on, "Keyspaces",  json_array());
-          json_object_set_new(on, "Tables",     json_array());
-          json_object_set_new(on, "Roles",      json_array());
-          json_object_set_new(on, "Functions",  json_array());*/
+          switch(current_grant->resource.r_key) {
+            case ALL_TOKEN      : on = json_object_get(permissions, "Keyspaces");  break;
+            case KEYSPACE_TOKEN : on = json_object_get(permissions, "Keyspaces");  break;
+            case TABLE_TOKEN    : on = json_object_get(permissions, "Tables");     break;
+            default : break;
+          }
+          char n_Perm[15] = "Permession";
+          char c[3];
+          sprintf(c, "%d", (int)json_object_size(on));
+          strcat(n_Perm, c);
+          json_object_set_new(on, n_Perm, desc);
+          json_t *perm_name = json_object();
+          json_object_set_new(perm_name, "permission_name", json_integer(current_grant->permission_name));
+          json_object_update(desc, perm_name);
+          json_t *perm_on = json_object();
+          if(strlen(current_grant->resource.r_value.v_Others) < 1) 
+            json_object_set_new(perm_on, "On", json_integer(current_grant->resource.r_value.v_Code));
+          else
+            json_object_set_new(perm_on, "On", json_string(current_grant->resource.r_value.v_Others));
+            json_object_update(desc, perm_on);
         }
       }
     }
@@ -1210,10 +1216,10 @@ void interpret_grant() {
     FILE* f_User = fopen(u_Path, "w+");
     json_dumpf(r_User, f_User, JSON_INDENT(3));
     fclose(f_User);
-    printf("user %s is granted\n", current_user->user_name);
+    printf("user %s is granted\n", current_grant->user_name);
   }
   else {
-    print_error(USER_IS_NOT_EXISTS, current_user->user_name);
+    print_error(USER_IS_NOT_EXISTS, current_grant->user_name);
   }
   json_decref(r_User);
 }

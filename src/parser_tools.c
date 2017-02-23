@@ -1637,7 +1637,7 @@ void _ressource(){
             _test_symbol(STRING_TOKEN);
         break;
         default : 
-            printf("\nressource_ERROR\n");
+            //printf("\nressource_ERROR\n");
             get_lex(); 
         break;
 
@@ -1654,7 +1654,7 @@ void _permission(){
         case AUTHORIZE_TOKEN: current_grant->permission_name = AUTHORIZE_TOKEN;  get_lex();break;
         case DESCRIBE_TOKEN : current_grant->permission_name = DESCRIBE_TOKEN;   get_lex();break;
         case EXECUTE_TOKEN  : current_grant->permission_name = EXECUTE_TOKEN;    get_lex();break;
-        default             : printf("\npermission_ERROR\n");get_lex(); break;
+        default             : /*printf("\npermission_ERROR\n");*/get_lex(); break;
     }
 }
 
@@ -1664,7 +1664,7 @@ void _all_statement(){
         case ROLES_TOKEN     : get_lex();break;
         case FUNCTIONS_TOKEN : get_lex(); _all_functions_statement();break;
         case MBEANS_TOKEN    : get_lex();break;
-        default              : printf("\nall statement_ERROR\n");get_lex(); break;
+        default              : /*printf("\nall statement_ERROR\n");*/get_lex(); break;
 
     }
 }
