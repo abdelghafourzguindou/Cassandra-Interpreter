@@ -122,11 +122,17 @@ void print_table(table_t* tab)
 
 // Affichage de la liste des colonnes d'une tables
 void print_column(column_t * col) {
-    if(col == NULL) printf("NULL COL");
+    if(col == NULL) printf("NULL COLONNES");
+    else
+    {
+    printf("\n-------------------------------------------------------------------------\n");
+    printf("NAME OF COLUMN \t\t\t\t\t\t  TYPE OF COLUMN");
+    printf("\n-------------------------------------------------------------------------\n");
     column_t* cursor = col;
     while(cursor != NULL) {
-        printf("%s\t\t-- %s\n", cursor->column_name, token_code[cursor->column_type]);
+        printf("%s \t\t\t\t\t\t %s\n", cursor->column_name, token_code[cursor->column_type]);
         cursor = cursor->next;
+    }
     }
 }
 

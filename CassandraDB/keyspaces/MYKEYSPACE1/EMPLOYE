@@ -1,0 +1,122 @@
+{
+   "description": {
+      "columns": {
+         "SALAIRE": 72,
+         "EMPID": 72,
+         "FIRST_NAME": 80,
+         "LAST_NAME": 80,
+         "DEPTID": 72
+      },
+      "primaryKeys": [
+         "EMPID",
+         "DEPTID"
+      ]
+   },
+   "data": {
+      "Row0": {
+         "SALAIRE": "NULL",
+         "EMPID": "88",
+         "FIRST_NAME": "'ABDELGHAFOUR'",
+         "LAST_NAME": "'ZGUINDOU'",
+         "DEPTID": "8"
+      },
+      "Row13": {
+         "SALAIRE": "NULL",
+         "EMPID": "NULL",
+         "FIRST_NAME": "'DD'",
+         "LAST_NAME": "NULL",
+         "DEPTID": "2"
+      },
+      "Row7": {
+         "SALAIRE": "NULL",
+         "EMPID": "8",
+         "FIRST_NAME": "'G6'",
+         "LAST_NAME": "'I6'",
+         "DEPTID": "6"
+      },
+      "Row9": {
+         "SALAIRE": "NULL",
+         "EMPID": "10",
+         "FIRST_NAME": "'G8'",
+         "LAST_NAME": "'I8'",
+         "DEPTID": "7"
+      },
+      "Row11": {
+         "SALAIRE": "NULL",
+         "EMPID": "12",
+         "FIRST_NAME": "'G10'",
+         "LAST_NAME": "'I10'",
+         "DEPTID": "1"
+      },
+      "Row14": {
+         "SALAIRE": "NULL",
+         "EMPID": "5",
+         "FIRST_NAME": "NULL",
+         "LAST_NAME": "NULL",
+         "DEPTID": "8"
+      },
+      "Row15": {
+         "SALAIRE": "NULL",
+         "EMPID": "11",
+         "LAST_NAME": "'I9'",
+         "FIRST_NAME": "'G9'",
+         "DEPTID": "88"
+      },
+      "Row1": {
+         "SALAIRE": "NULL",
+         "EMPID": "2",
+         "FIRST_NAME": "'GHANOUCH'",
+         "LAST_NAME": "'ISSAM'",
+         "DEPTID": "57"
+      },
+      "Row6": {
+         "SALAIRE": "NULL",
+         "EMPID": "7",
+         "FIRST_NAME": "'G5'",
+         "LAST_NAME": "'I5'",
+         "DEPTID": "5"
+      },
+      "Row5": {
+         "SALAIRE": "NULL",
+         "EMPID": "6",
+         "FIRST_NAME": "'G4'",
+         "LAST_NAME": "'I4'",
+         "DEPTID": "5"
+      },
+      "Row2": {
+         "SALAIRE": "NULL",
+         "EMPID": "3",
+         "FIRST_NAME": "'G1'",
+         "LAST_NAME": "'I1'",
+         "DEPTID": "15"
+      },
+      "Row3": {
+         "SALAIRE": "NULL",
+         "EMPID": "4",
+         "FIRST_NAME": "'G2'",
+         "LAST_NAME": "'I2'",
+         "DEPTID": "5"
+      },
+      "Row4": {
+         "SALAIRE": "NULL",
+         "EMPID": "5",
+         "FIRST_NAME": "'G3'",
+         "LAST_NAME": "'I3'",
+         "DEPTID": "5"
+      },
+      "Row8": {
+         "SALAIRE": "NULL",
+         "EMPID": "9",
+         "FIRST_NAME": "'G7'",
+         "LAST_NAME": "'I7'",
+         "DEPTID": "6"
+      },
+      "Row12": {
+         "SALAIRE": "NULL",
+         "EMPID": "13",
+         "FIRST_NAME": "'G11'",
+         "LAST_NAME": "'I11'",
+         "DEPTID": "54"
+      }
+   }
+}

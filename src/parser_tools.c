@@ -29,6 +29,7 @@ void isTableName()
 {
     if(current_token.code == IDENTIFIER_TOKEN || current_token.code == TABLE_FUNCTION_NAME_TOKEN)
     {
+
         set_current_table_path(current_token.value);
         // Les traitements Semantiques pour create table
         if( CURRENT_PARENT_INST == CREATE_TOKEN && CURRENT_CHILD_INST == TABLE_TOKEN )

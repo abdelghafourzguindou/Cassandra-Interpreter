@@ -22,6 +22,8 @@ void set_current_keyspace_path(const char* r) {
   //else {
   strcat(current_keyspace_path, directory);
   strcat(current_keyspace_path, "/");
+  strcat(current_keyspace_path, "keyspaces");
+  strcat(current_keyspace_path, "/");
   strcat(current_keyspace_path, r);
   //}
 }
@@ -59,6 +61,58 @@ column_t* load_current_table_columns() {
   //root = json_loads(data, 0, &error);
   //printf("ici -> %s\n", get_current_table_path());
   root = json_load_file(get_current_table_path(), 0, &error);
+  //root = json_loadf(table_file,  0, &error);
+  //root = json_loads(read_json_file(table_file), 0, &error);
+
+  /*if(!root) {
+    fprintf(stderr, "error : root\n");
+    fprintf(stderr, "error : on line %d: %s\n", error.line, error.text);
+    //exit(1);
+  }*/
+
+  json_t *desc = json_object_get(root, "description");
+  /*if(!json_is_object(desc)) {
+    printf("error loading description");
+  }*/
+
+  json_t *columns = json_object_get(desc, "columns");
+  /*if(!json_is_object(columns)) {
+    printf("error loading columns");
+  }*/
+
+  json_object_foreach(columns, key, element) {
+    value = json_integer_value(element);
+    column_t *newCol = create_column(key, value);
+    //print_column(newCol);
+    col_list = add_column(newCol, col_list);
+    //print_column(col_list);
+    //printf("%s : %d\n", key, value);
+  }
+  //print_column(col_list);
+  //fclose(table_file);
+  json_decref(columns);
+  json_decref(desc);
+  json_decref(root);
+  return col_list;
+}
+
+column_t* load_table_columns(char* nomTable) {
+  column_t *col_list = NULL;
+  //FILE *table_file = fopen(get_current_table_path(), "r");
+  //char* data = read_json_file(table_file);//"{\"description\": {\"EMPID\": 72,\"DEPTID\": 72,\"FIRST_NAME\": 80,\"LAST_NAME\": 80},\"data\": {}}";
+
+  json_error_t error;
+  json_t *root;
+  json_t *element;
+
+  int value;
+  const char *key;
+
+  //root = json_loads(data, 0, &error);
+  //printf("ici -> %s\n", get_current_table_path());
+  char * pathTable = malloc(200);
+  sprintf(pathTable,"%s/%s",get_current_keyspace_path(),nomTable);
+  root = json_load_file(pathTable, 0, &error);
   //root = json_loadf(table_file,  0, &error);
   //root = json_loads(read_json_file(table_file), 0, &error);
 
@@ -1216,4 +1270,17 @@ void interpret_grant() {
     print_error(USER_IS_NOT_EXISTS, current_user->user_name);
   }
   json_decref(r_User);
+}
+
+
+bool get_State_Current_Keyspace()
+{
+  return keyspace_is_used;
+
+}
+
+void set_State_Current_Keyspace(bool state)
+{
+   keyspace_is_used = state;
+
 }

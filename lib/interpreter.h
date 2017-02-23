@@ -52,6 +52,10 @@ void interpret_drop_user();
 void interpret_alter_table();
 void interpret_alter_user();
 
+bool get_State_Current_Keyspace();
+void set_State_Current_Keyspace(bool);
+
+
 data_insert_t* create_all_data_insert();
 data_insert_t* add_data_insert(data_insert_t*  , data_insert_t* );
 data_insert_t*  create_data_insert(char * key, char * value);

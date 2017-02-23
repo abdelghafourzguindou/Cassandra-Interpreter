@@ -19,7 +19,7 @@ void printAllPossibily()
    }
 
 void makeCassandra() {
-    char chemin[40] , chemin_in[40] , origine[100];
+    char chemin[40] , chemin_in[40] , origine[100],nameTable[100];
     char commande[100];
     int lenght ;
     system("clear");
@@ -35,7 +35,31 @@ void makeCassandra() {
         if(! strcmp(requeste,"CLEAR"))
          {   
             system("clear");
-         }       
+         } 
+         // DESCRIBE
+         else if(! strncmp(requeste,"DESCRIBE",8))
+         {   
+            if (strlen(requeste) == 8)
+            {
+                if(get_State_Current_Keyspace())
+                {
+                printf("Voilà la liste des tableaux du Keyspace courant :\n");
+                sprintf(commande,"ls %s | tr -s \" \" ",get_current_keyspace_path());
+                }
+                else
+                {
+                printf("Voilà la liste des Keyspaces :\n");
+                sprintf(commande,"ls CassandraDB/KEYSPACES | tr -s \" \" ");
+                }
+                system(commande);
+            }
+            else
+            {
+                strcpy(nameTable,requeste+9);
+                print_column(load_table_columns(nameTable));
+
+            }
+         } 
          // HELP
          else if (strncmp(requeste,"HELP",4)==0 )
          {    
