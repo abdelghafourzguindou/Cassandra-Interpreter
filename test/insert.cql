@@ -1,4 +1,4 @@
-&°beinsert into prof values (0, 'cin0', 'nom0', 'prenom0', 500.000000);
+insert into prof values (0, 'cin0', 'nom0', 'prenom0', 500.000000);
 insert into prof values (1, 'cin1', 'nom1', 'prenom1', 600.000000);
 insert into prof values (2, 'cin2', 'nom2', 'prenom2', 700.000000);
 insert into prof values (3, 'cin3', 'nom3', 'prenom3', 800.000000);

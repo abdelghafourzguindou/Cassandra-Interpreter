@@ -186,7 +186,7 @@ int main()
     //system("rm -r /home/zguindouos/Github/cassandra/CassandraDB/Keyspaces/*");
     //getchar();
     
-    push_insert_data();
+    //push_insert_data();
     makeCassandra();
     
     /*file = fopen("test/test.cql", "r");
