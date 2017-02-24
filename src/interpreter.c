@@ -563,7 +563,7 @@ void interpret_drop() {
       //printf("---- %s\n", this_keyspace);
       system(this_keyspace);
       printf("keyspace %s is droped\n", get_current_keyspace_path());
-    } else printf("error : keyspace not exist\n");
+    } else print_error(KEYSPACE_IS_NOT_EXISTS, current_keyspace_name);
   }
   //Drop user
   else if (CURRENT_CHILD_INST == USER_TOKEN)

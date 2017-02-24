@@ -72,3 +72,6 @@ CREATE TABLE client (
   last_name text,
   adresse varchar
 );
+
+use ensias;
+

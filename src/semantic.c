@@ -128,11 +128,13 @@ void print_column(column_t * col) {
     else
     {
     printf("\n-------------------------------------------------------------------------\n");
-    printf("NAME OF COLUMN \t\t\t\t\t\t  TYPE OF COLUMN");
+    printf("NAME OF COLUMN\t\t\t\t\t\tTYPE OF COLUMN");
     printf("\n-------------------------------------------------------------------------\n");
     column_t* cursor = col;
     while(cursor != NULL) {
-        printf("%s \t\t\t\t\t\t %s\n", cursor->column_name, token_code[cursor->column_type]);
+        printf("%s\t\t\t\t\t\t\t", cursor->column_name);
+        print_type(cursor->column_type);
+        printf("\n");
         cursor = cursor->next;
     }
     }

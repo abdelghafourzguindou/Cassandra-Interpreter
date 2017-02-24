@@ -63,13 +63,37 @@ void toMiniscule(char* nom)
 
 void printAllPossibily()
 {
-    char *srt[100] = {"select", "insert","alter","delete","drop","update","LDD","LMD"};
-    int i;
-    for ( i=0 ; i < 8 ; i++)
-        printf("%s -- ",srt[i]);
-    printf("\n");
+    printf("help ?              print help posibility\n");
+    printf("help                print all cassandra help\n");
+    printf("help select         print select help\n");
+    printf("help insert         print insert help\n");
+    printf("help alter          print alter help\n");
+    printf("help delete         print delete help\n");
+    printf("help create         print create help\n");
+    printf("help drop           print drop help\n");
+    printf("help update         print update help\n");
+    printf("help LDD            print LDD help\n");
+    printf("help LMD            print LMD help\n");
+    printf("desc                print description\n");
+    printf("desc table_name     print table description\n");
+    printf("execute             execute a cql script\n");
+    printf("clear               screen clean\n");
 }
+/*
+char[500] r_Request() {
+    char request    [500];
+    char commande   [500];
+    char c = getc();
+    while(c != ';') {
+        if((int)c != 13) {
+            printf("dddddddddd\n");
+        }
+        else printf("eeeeeeeeeeeee\n");
+    }
 
+    return request;
+}
+*/
 void makeCassandra() 
 {
     char chemin     [40];
@@ -95,6 +119,7 @@ void makeCassandra()
         
         printf("%sCassandra > %s", RED, NC);
         gets(request);
+        //request = r_Request();
         toMajuscule(request);
 
         //CLEAR

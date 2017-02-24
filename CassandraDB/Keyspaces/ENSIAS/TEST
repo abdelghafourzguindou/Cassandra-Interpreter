@@ -1,0 +1,14 @@
+{
+   "description": {
+      "columns": {
+         "AGE": 72,
+         "SEXE": 80,
+         "T1": 80
+      },
+      "primaryKeys": [
+         "AGE",
+         "SEXE"
+      ]
+   },
+   "data": {}
+}
