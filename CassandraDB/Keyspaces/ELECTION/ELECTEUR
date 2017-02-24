@@ -1,0 +1,21 @@
+{
+   "description": {
+      "columns": {
+         "CIN": 80,
+         "NOM": 74,
+         "PRENOM": 74,
+         "PROFESSION": 74,
+         "ADRESSE": 80,
+         "COMMUNE": 74,
+         "BV": 74,
+         "CIRCONSTRIPION": 74
+      },
+      "primaryKeys": [
+         "COMMUNE",
+         "BV",
+         "CIRCONSTRIPION",
+         "CIN"
+      ]
+   },
+   "data": {}
+}

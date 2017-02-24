@@ -95,6 +95,35 @@ column_t* load_current_table_columns() {
   return col_list;
 }
 
+column_t* load_table_columns(char* nomTable) {
+  column_t *col_list = NULL;
+
+  json_error_t error;
+  json_t *root;
+  json_t *element;
+
+  int value;
+  const char *key;
+
+  char * pathTable = malloc(200);
+  sprintf(pathTable,"%s/%s",get_current_keyspace_path(),nomTable);
+  root = json_load_file(pathTable, 0, &error);
+
+  json_t *desc = json_object_get(root, "description");
+
+  json_t *columns = json_object_get(desc, "columns");
+
+  json_object_foreach(columns, key, element) {
+    value = json_integer_value(element);
+    column_t *newCol = create_column(key, value);
+    col_list = add_column(newCol, col_list);
+  }
+  json_decref(columns);
+  json_decref(desc);
+  json_decref(root);
+  return col_list;
+}
+
 column_t* load_current_table_primary_keys() {
   column_t *col_list = NULL;
 
@@ -459,6 +488,7 @@ void interpret_alter_table() {
           break;
         }
       }
+      if(json_object_size(data) == 0) isPossible = true;
       //----------------------------
       if(!isPossible) print_error(ALTER_DENIED, current_table->column_list->column_name);
       else {
@@ -1222,4 +1252,16 @@ void interpret_grant() {
     print_error(USER_IS_NOT_EXISTS, current_grant->user_name);
   }
   json_decref(r_User);
+}
+
+bool get_State_Current_Keyspace()
+{
+  return keyspace_is_used;
+
+}
+
+void set_State_Current_Keyspace(bool state)
+{
+   keyspace_is_used = state;
+
 }

@@ -1,0 +1,14 @@
+{
+   "description": {
+      "columns": {
+         "PRODUIT_ID": 72,
+         "PRODUIT_NAME": 74,
+         "PRODUIT_CATEGORIE": 74,
+         "PRODUIT_PRIX": 70
+      },
+      "primaryKeys": [
+         "PRODUIT_ID"
+      ]
+   },
+   "data": {}
+}

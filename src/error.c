@@ -11,31 +11,32 @@ void print_error(error_code_t err, char *flage) {
     set_syntaxic_state(false);
 
     //printf("\n%serror%s ligne %s%d%s : %s%s%s ", RED, KGRN, NC, ligne_number, KWHT, BLUE, flage, NC);
-    printf("\n%serror%s ligne %s%d%s : ", RED, KGRN, NC, ligne_number, KWHT);
+    //printf("\n%serror%s ligne %s%d%s : ", RED, KGRN, NC, ligne_number, KWHT);
+    printf("\n%serror%s : ", RED, KWHT);
 
     switch(err) 
     {
-        case SCANNER_ERROR               : printf("code = 2000 [Invalid query] %s%s%s undefined symbol\n",                      BLUE, flage, RED);                          break;
-        case PARSER_ERROR                : printf("code = 2001 [Invalid query] %s%s%s unexpected here\n",                       BLUE, flage, RED);                          break;
-        case KEYSPACE_IS_NOT_EXISTS      : printf("code = 2002 [Invalid query] %s%s%s keyspace is not exists\n",                BLUE, flage, RED);                          break;
-        case TABLE_IS_NOT_EXISTS         : printf("code = 2003 [Invalid query] %s%s%s table is not exists\n",                   BLUE, flage, RED);                          break;
-        case COLUMN_IS_NOT_EXISTS        : printf("code = 2004 [Invalid query] %s%s%s column is not exists\n",                  BLUE, flage, RED);                          break;
-        case FUNCTION_IS_NOT_EXISTS      : printf("code = 2005 [Invalid query] %s%s%s function is not exists\n",                BLUE, flage, RED);                          break;
-        case KEYSPACE_IS_ALREADY_EXISTS  : printf("code = 2006 [Invalid query] %s%s%s keyspace is already exists\n",            BLUE, flage, RED);                          break;
-        case TABLE_IS_ALREADY_EXISTS     : printf("code = 2007 [Invalid query] %s%s%s table is already exists\n",               BLUE, flage, RED);                          break;
-        case COLUMN_IS_ALREADY_EXISTS    : printf("code = 2008 [Invalid query] %s%s%s column is already exists\n",              BLUE, flage, RED);                          break;
-        case FUNCTION_IS_ALREADY_EXISTS  : printf("code = 2009 [Invalid query] %s%s%s function is already exists\n",            BLUE, flage, RED);                          break;
-        case INCOMPATIBLE_TYPE           : printf("code = 2010 [Invalid query] %s%s%s incompatible type ",                      BLUE, flage, RED); is_type_error = true;    break;
-        case OVERTAKING_OF_ARGUMENTS     : printf("code = 2011 [Invalid query] %s%s%s overtaking of arguments\n",               BLUE, flage, RED);                          break;
-        case INSUFFICIENT_ARGUMENTS      : printf("code = 2012 [Invalid query] %s%s%s insufficient arguments\n",                BLUE, flage, RED);                          break;
-        case ROW_IS_ALREADY_EXISTS       : printf("code = 2013 [Invalid query] %s%s%s row is already exists in DB\n",           BLUE, flage, RED);                          break;
-        case UNUSED_KEYSPACE             : printf("code = 2014 [Invalid query] %s%s%s unused keyspace\n",                       BLUE, flage, RED);                          break;
-        case COLUMN_IS_ALREADY_ADDED     : printf("code = 2015 [Invalid query] %s%s%s column is already added\n",               BLUE, flage, RED);                          break;
-        case COLUMN_IS_ALREADY_ALTERED   : printf("code = 2016 [Invalid query] %s%s%s column is already altered\n",             BLUE, flage, RED);                          break;
-        case INCOMPATIBLE_COMPARAISON    : printf("code = 2017 [Invalid query] %s%s%s incompatible comparaison\n",              BLUE, flage, RED);                          break;
-        case ALTER_DENIED                : printf("code = 2018 [Invalid query] %s%s%s alter is denied because data is found\n", BLUE, flage, RED);                          break;
-        case USER_ALREADY_EXISTS         : printf("code = 2019 [Invalid query] %s%s%s user is already exists\n",                BLUE, flage, RED);                          break;
-        case USER_IS_NOT_EXISTS          : printf("code = 2020 [Invalid query] %s%s%s user is not exists\n",                    BLUE, flage, RED);                          break;
+        case SCANNER_ERROR               : printf("code = %s2000%s [Invalid query] %s%s%s undefined symbol\n",                      KGRN, NC, BLUE, flage, RED);                          break;
+        case PARSER_ERROR                : printf("code = %s2001%s [Invalid query] %s%s%s unexpected here\n",                       KGRN, NC, BLUE, flage, RED);                          break;
+        case KEYSPACE_IS_NOT_EXISTS      : printf("code = %s2002%s [Invalid query] %s%s%s keyspace not exists\n",                   KGRN, NC, BLUE, flage, RED);                          break;
+        case TABLE_IS_NOT_EXISTS         : printf("code = %s2003%s [Invalid query] %s%s%s table not exists\n",                      KGRN, NC, BLUE, flage, RED);                          break;
+        case COLUMN_IS_NOT_EXISTS        : printf("code = %s2004%s [Invalid query] %s%s%s column not exists\n",                     KGRN, NC, BLUE, flage, RED);                          break;
+        case FUNCTION_IS_NOT_EXISTS      : printf("code = %s2005%s [Invalid query] %s%s%s function not exists\n",                   KGRN, NC, BLUE, flage, RED);                          break;
+        case KEYSPACE_IS_ALREADY_EXISTS  : printf("code = %s2006%s [Invalid query] %s%s%s keyspace already exists\n",               KGRN, NC, BLUE, flage, RED);                          break;
+        case TABLE_IS_ALREADY_EXISTS     : printf("code = %s2007%s [Invalid query] %s%s%s table already exists\n",                  KGRN, NC, BLUE, flage, RED);                          break;
+        case COLUMN_IS_ALREADY_EXISTS    : printf("code = %s2008%s [Invalid query] %s%s%s column already exists\n",                 KGRN, NC, BLUE, flage, RED);                          break;
+        case FUNCTION_IS_ALREADY_EXISTS  : printf("code = %s2009%s [Invalid query] %s%s%s function already exists\n",               KGRN, NC, BLUE, flage, RED);                          break;
+        case INCOMPATIBLE_TYPE           : printf("code = %s2010%s [Invalid query] %s%s%s incompatible type ",                      KGRN, NC, BLUE, flage, RED); is_type_error = true;    break;
+        case OVERTAKING_OF_ARGUMENTS     : printf("code = %s2011%s [Invalid query] %s%s%s overtaking of arguments\n",               KGRN, NC, BLUE, flage, RED);                          break;
+        case INSUFFICIENT_ARGUMENTS      : printf("code = %s2012%s [Invalid query] %s%s%s insufficient arguments\n",                KGRN, NC, BLUE, flage, RED);                          break;
+        case ROW_IS_ALREADY_EXISTS       : printf("code = %s2013%s [Invalid query] %s%s%s row already exists in DB\n",              KGRN, NC, BLUE, flage, RED);                          break;
+        case UNUSED_KEYSPACE             : printf("code = %s2014%s [Invalid query] %s%s%s unused keyspace\n",                       KGRN, NC, BLUE, flage, RED);                          break;
+        case COLUMN_IS_ALREADY_ADDED     : printf("code = %s2015%s [Invalid query] %s%s%s column already added\n",                  KGRN, NC, BLUE, flage, RED);                          break;
+        case COLUMN_IS_ALREADY_ALTERED   : printf("code = %s2016%s [Invalid query] %s%s%s column already altered\n",                KGRN, NC, BLUE, flage, RED);                          break;
+        case INCOMPATIBLE_COMPARAISON    : printf("code = %s2017%s [Invalid query] %s%s%s incompatible comparaison\n",              KGRN, NC, BLUE, flage, RED);                          break;
+        case ALTER_DENIED                : printf("code = %s2018%s [Invalid query] %s%s%s alter denied because data is found\n",    KGRN, NC, BLUE, flage, RED);                          break;
+        case USER_ALREADY_EXISTS         : printf("code = %s2019%s [Invalid query] %s%s%s user already exists\n",                   KGRN, NC, BLUE, flage, RED);                          break;
+        case USER_IS_NOT_EXISTS          : printf("code = %s2020%s [Invalid query] %s%s%s user not exists\n",                       KGRN, NC, BLUE, flage, RED);                          break;
         default                          : break;
     }
     }

@@ -1,4 +1,0 @@
-/****************************/  INSERT DATA  /****************************/
-
-insert into EMPLOYE (deptid,last_name, first_name, empid)  values (8,'zguindou','Abdelghafour', 88);
-insert into EMPLOYE (empid, deptid, first_name, last_name) values (2,57,'GHANOUCH','Issam');

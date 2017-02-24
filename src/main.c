@@ -10,6 +10,38 @@
 
 bool no_error;
 
+void push_insert_data() {
+    char data[500];
+    int id;
+    float salaire = 500;
+    char c_Data[10];
+    FILE *f = fopen("test/insert.cql", "w+");
+    for(id = 0; id < 200; id++) {
+        strcat(data, "insert into prof values (");
+        memset(c_Data, '\0', 10);
+        sprintf(c_Data, "%d", id);
+        strcat(data, c_Data);
+        strcat(data, ", 'cin");
+        strcat(data, c_Data);
+        strcat(data, "'"); 
+        strcat(data, ", 'nom");
+        strcat(data, c_Data);
+        strcat(data, "'");        
+        strcat(data, ", 'prenom");
+        strcat(data, c_Data);
+        strcat(data, "'"); 
+        memset(c_Data, '\0', 10);
+        sprintf(c_Data, "%f", salaire);
+        salaire += 100;
+        strcat(data, ", ");
+        strcat(data, c_Data);
+        strcat(data, ");");
+        fprintf(f, "%s\n", data);
+        memset(data, '\0', 500);
+    }
+    if(f) fclose(f);
+}
+
 void toMajuscule(char* nom)
 {
     int i = 0;
@@ -43,8 +75,9 @@ void makeCassandra()
     char chemin     [40];
     char chemin_in  [40];
     char origine    [100];
-    char requeste   [500];
     char commande   [100];
+    char request    [500];
+    char nameTable  [100];
     int lenght;
 
     system("clear");
@@ -55,27 +88,28 @@ void makeCassandra()
         
         memset(chemin,   '\0', 40);
         memset(chemin_in,'\0', 40);
-        memset(requeste, '\0', 100);
-        memset(requeste, '\0', 500);
+        memset(origine,  '\0', 100);
         memset(commande, '\0', 100);
+        memset(request,  '\0', 500);
+        memset(nameTable,'\0', 100);
         
         printf("%sCassandra > %s", RED, NC);
-        gets(requeste);
-        toMajuscule(requeste);
+        gets(request);
+        toMajuscule(request);
 
         //CLEAR
-        if(!strcmp(requeste,"CLEAR"))
+        if(!strcmp(request,"CLEAR"))
         {   
             system("clear");
         }       
         //HELP
-        else if (strncmp(requeste,"HELP",4) == 0)
+        else if (strncmp(request,"HELP",4) == 0)
         {    
 
-            if(strcmp(requeste+5,"?") == 0) printAllPossibily();
-            else if(strlen(requeste) > 6)
+            if(strcmp(request+5,"?") == 0) printAllPossibily();
+            else if(strlen(request) > 6)
             {
-                strcpy(chemin,requeste+5);
+                strcpy(chemin,request+5);
                 //printf("Chemin : %s\n",chemin );
                 system("clear");
                 sprintf(commande,"more help/%s.txt",chemin);
@@ -86,11 +120,35 @@ void makeCassandra()
                 system("clear");
                 system("more help/help.txt");
             }
+        }
+        // DESCRIBE
+         else if(! strncmp(request,"DESC",4))
+         {   
+            if (strlen(request) == 4)
+            {
+                if(get_State_Current_Keyspace())
+                {
+                printf("Current keyspace table list :\n");
+                sprintf(commande,"ls %s | tr -s \" \" ",get_current_keyspace_path());
+                }
+                else
+                {
+                printf("Keyspaces list :\n");
+                sprintf(commande,"ls CassandraDB/Keyspaces | tr -s \" \" ");
+                }
+                system(commande);
+            }
+            else
+            {
+                strcpy(nameTable,request+5);
+                print_column(load_table_columns(nameTable));
+
+            }
         } 
-        else if(strncmp(requeste,"EXECUTE",7) == 0)
+        else if(strncmp(request,"EXECUTE",7) == 0)
         {
-          strcpy(chemin_in,requeste+8);
-          lenght = strlen(chemin_in) - strlen(strchr(requeste+9,')'));
+          strcpy(chemin_in,request+8);
+          lenght = strlen(chemin_in) - strlen(strchr(request+9,')'));
           strncpy(chemin,chemin_in,lenght);
           toMiniscule(chemin);
           //puts(chemin);
@@ -99,13 +157,13 @@ void makeCassandra()
         }
         else
         { 
-            file = fopen("test/requesteTest.sql", "w+");
-            fprintf(file, "%s\n\n", requeste);
+            file = fopen("test/request.cql", "w+");
+            fprintf(file, "%s\n\n", request);
             fclose(file);
-            file = fopen("test/requesteTest.sql", "r");
+            file = fopen("test/request.cql", "r");
         }
 
-        if(file != NULL) {        
+        if(file) { 
             if(SCANNING) {
                 read_char(file);
                 while(current_token.code != END_TOKEN)
@@ -117,6 +175,7 @@ void makeCassandra()
             }
             if(PARSING) _parsing();
             fclose(file);
+            file = NULL;
         }
     }
 }
@@ -127,9 +186,10 @@ int main()
     //system("rm -r /home/zguindouos/Github/cassandra/CassandraDB/Keyspaces/*");
     //getchar();
     
+    push_insert_data();
     makeCassandra();
     
-    /*file = fopen("test/test.sql", "r");
+    /*file = fopen("test/test.cql", "r");
     if(file == NULL) {
         printf("error : file error");
     }

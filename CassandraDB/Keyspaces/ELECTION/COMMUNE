@@ -1,0 +1,12 @@
+{
+   "description": {
+      "columns": {
+         "COM_ID": 72,
+         "ADRESSE": 74
+      },
+      "primaryKeys": [
+         "COM_ID"
+      ]
+   },
+   "data": {}
+}

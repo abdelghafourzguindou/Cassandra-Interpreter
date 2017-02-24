@@ -1,0 +1,16 @@
+{
+   "description": {
+      "columns": {
+         "ID": 72,
+         "CIN": 80,
+         "NOM": 74,
+         "PRENOM": 74,
+         "SALAIRE": 70
+      },
+      "primaryKeys": [
+         "ID",
+         "CIN"
+      ]
+   },
+   "data": {}
+}

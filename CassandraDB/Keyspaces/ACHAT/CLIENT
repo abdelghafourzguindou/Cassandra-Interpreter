@@ -1,0 +1,14 @@
+{
+   "description": {
+      "columns": {
+         "CLIENT_ID": 72,
+         "FIRST_NAME": 74,
+         "LAST_NAME": 74,
+         "ADRESSE": 80
+      },
+      "primaryKeys": [
+         "CLIENT_ID"
+      ]
+   },
+   "data": {}
+}

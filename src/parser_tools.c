@@ -671,7 +671,8 @@ void _constant()
         if ( ( cloningToking.code == TEXT_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
            ( cloningToking.code == VARCHAR_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
            ( cloningToking.code == INT_TOKEN && current_token.code == INT_VALUE_TOKEN ) ||
-           ( cloningToking.code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+           //( cloningToking.code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+           ( cloningToking.code == FLOAT_TOKEN && (current_token.code == FLOAT_VALUE_TOKEN) || current_token.code == INT_VALUE_TOKEN) ||
            ( cloningToking.code == BOOLEAN_TOKEN && current_token.code == BOOLEAN_VALUE_TOKEN) ||
            ( cloningToking.code == UUID_TOKEN && current_token.code == UUID_VALUE_TOKEN )
            )
@@ -700,7 +701,8 @@ void _constant()
             if ( ( Colonne.code == TEXT_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
                ( Colonne.code == VARCHAR_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
                ( Colonne.code == INT_TOKEN && current_token.code == INT_VALUE_TOKEN ) ||
-               ( Colonne.code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+               //( Colonne.code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+               ( Colonne.code == FLOAT_TOKEN && (current_token.code == FLOAT_VALUE_TOKEN) || current_token.code == INT_VALUE_TOKEN) ||
                ( Colonne.code == BOOLEAN_TOKEN && current_token.code == BOOLEAN_VALUE_TOKEN) ||
                ( Colonne.code == UUID_TOKEN && current_token.code == UUID_VALUE_TOKEN ) ||
                ( current_token.code  == NULL_TOKEN )
@@ -732,7 +734,8 @@ void _constant()
                 if( !((code == TEXT_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
                    ( code == VARCHAR_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
                    ( code == INT_TOKEN && current_token.code == INT_VALUE_TOKEN ) ||
-                   ( code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+                   //( code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+                   ( code == FLOAT_TOKEN && (current_token.code == FLOAT_VALUE_TOKEN) || current_token.code == INT_VALUE_TOKEN) ||
                    ( code == BOOLEAN_TOKEN && current_token.code == BOOLEAN_VALUE_TOKEN) ||
                    ( code == UUID_TOKEN && current_token.code == UUID_VALUE_TOKEN )
                    )
@@ -754,7 +757,8 @@ void _constant()
                 if( !((code == TEXT_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
                    ( code == VARCHAR_TOKEN && (current_token.code == TEXT_VALUE_TOKEN || current_token.code  == STRING_TOKEN ) )  ||
                    ( code == INT_TOKEN && current_token.code == INT_VALUE_TOKEN ) ||
-                   ( code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+                   //( code == FLOAT_TOKEN && current_token.code == FLOAT_VALUE_TOKEN) ||
+                   ( code == FLOAT_TOKEN && (current_token.code == FLOAT_VALUE_TOKEN) || current_token.code == INT_VALUE_TOKEN) ||
                    ( code == BOOLEAN_TOKEN && current_token.code == BOOLEAN_VALUE_TOKEN) ||
                    ( code == UUID_TOKEN && current_token.code == UUID_VALUE_TOKEN )
                    )

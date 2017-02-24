@@ -2,6 +2,7 @@
 
 int ligne_number  = 1;
 int column_number = 1;
+FILE *file = NULL;
 
 void append(char* s, char c)
 {

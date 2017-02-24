@@ -1,0 +1,12 @@
+{
+   "description": {
+      "columns": {
+         "BV_ID": 72,
+         "ADRESSE": 80
+      },
+      "primaryKeys": [
+         "BV_ID"
+      ]
+   },
+   "data": {}
+}

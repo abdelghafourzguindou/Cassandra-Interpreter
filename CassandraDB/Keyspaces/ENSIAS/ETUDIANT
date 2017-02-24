@@ -1,0 +1,14 @@
+{
+   "description": {
+      "columns": {
+         "CEN": 80,
+         "FIRST_NAME": 74,
+         "LAST_NAME": 74,
+         "FILIERE": 74
+      },
+      "primaryKeys": [
+         "CEN"
+      ]
+   },
+   "data": {}
+}

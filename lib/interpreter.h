@@ -23,12 +23,15 @@ static bool 		keyspace_is_used;
 
 column_t* load_current_table_columns();
 column_t* load_current_table_primary_keys();
+column_t* load_table_columns(char*);
 
 
 void set_current_keyspace_path(const char*);
 char* get_current_keyspace_path();
 void set_current_table_path(const char*);
 char* get_current_table_path();
+bool get_State_Current_Keyspace();
+void set_State_Current_Keyspace(bool);
 
 void interpret();
 void interpret_use();

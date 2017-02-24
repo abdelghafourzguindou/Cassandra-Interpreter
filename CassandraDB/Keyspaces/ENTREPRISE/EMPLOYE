@@ -1,0 +1,15 @@
+{
+   "description": {
+      "columns": {
+         "EMPID": 72,
+         "DEPTID": 72,
+         "FIRST_NAME": 80,
+         "LAST_NAME": 80
+      },
+      "primaryKeys": [
+         "EMPID",
+         "DEPTID"
+      ]
+   },
+   "data": {}
+}

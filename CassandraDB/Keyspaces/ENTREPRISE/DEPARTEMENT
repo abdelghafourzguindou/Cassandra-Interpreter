@@ -1,0 +1,12 @@
+{
+   "description": {
+      "columns": {
+         "DEPTID": 72,
+         "DEPTNAME": 80
+      },
+      "primaryKeys": [
+         "DEPTID"
+      ]
+   },
+   "data": {}
+}

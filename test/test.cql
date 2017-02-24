@@ -1,6 +1,4 @@
-
-
-CREATE KEYSPACE myKeyspace1
+/*CREATE KEYSPACE m
   WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
 
 
@@ -62,11 +60,12 @@ CREATE TABLE DogTypes (
   AND compaction =
     { 'class' : 'SizeTieredCompactionStrategy', 'min_threshold' : 6 };
 
-
+*/
 use MYKEYSPACE1;
 /*
 --DROP KEYSPACE MYKEYSPACE2;
 */
+/*
 insert into EMPLOYE (deptid,last_name, first_name, empid)  values (8,'zguindou','Abdelghafour', 88);
 insert into EMPLOYE (empid, deptid, first_name, last_name) values (2,57,'GHANOUCH','Issam');
 insert into EMPLOYE (empid, deptid, first_name, last_name) values (3,15,'G1','I1');
@@ -80,7 +79,7 @@ insert into EMPLOYE (empid, deptid, first_name, last_name) values (10,7,'G8','I8
 insert into EMPLOYE (empid, deptid, first_name, last_name) values (11,88,'G9','I9');
 insert into EMPLOYE (empid, deptid, first_name, last_name) values (12,1,'G10','I10');
 insert into EMPLOYE (empid, deptid, first_name, last_name) values (13,54,'G11','I11');
-  
+  */
 
 --select * from employe;
 --select * from employe where empid = 2;
@@ -92,7 +91,7 @@ insert into EMPLOYE (empid, deptid, first_name, last_name) values (13,54,'G11','
 --select * from employe;
 --select * from employe where empid > 2;
 --select * from employe where last_name = 'ZGUINDOU';
- --select count(*) from employe where deptid IN (199 , 200);
+--select count(*) from employe where deptid IN (199 , 200);
 --select count(*) from employe where deptid = 5;
 
 --select deptid, last_name, first_name from employe;
@@ -103,7 +102,7 @@ insert into EMPLOYE (empid, deptid, first_name, last_name) values (13,54,'G11','
 --DROP TABLE CATS;
 --delete from employe; --N'exist pas f cassandra
 --delete from employe where empid > 0 and deptid > 10;
---update employe set last_name = 'zguindou', FIRST_NAME = 'abdelghafour' where DEPTID > 0 and empid > 0 ;
+--update employe set last_name = 'zguindou', FIRST_NAME = 'abdelghafour' where DEPTID > 0 and empid > 0;
 
 --ALTER TABLE EMPLOYE ALTER last_name type int;
 --ALTER TABLE EMPLOYE ADD sex varchar, age int, profession varchar;
