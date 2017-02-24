@@ -8,9 +8,17 @@
             "Permession0": {
                "permission_name": 49,
                "On": "MYKEYSPACE1"
+            },
+            "Permession1": {
+               "permission_name": 13
             }
          },
-         "Tables": {},
+         "Tables": {
+            "Permession0": {
+               "permission_name": 49,
+               "On": "MYKEYSPACE1.EMPLOYE"
+            }
+         },
          "Roles": {},
          "Functions": {}
       }

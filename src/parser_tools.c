@@ -1640,10 +1640,9 @@ void _ressource(){
             //printf("\nressource_ERROR\n");
             get_lex(); 
         break;
-
-
     }
 }
+
 void _permission(){
     switch(current_token.code){
         case CREATE_TOKEN   : current_grant->permission_name = CREATE_TOKEN;     get_lex(); break;

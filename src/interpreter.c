@@ -21,6 +21,7 @@ void set_current_keyspace_path(const char* r) {
   //if(!strlen(r)) current_keyspace_path[0] = '\0';
   //else {
   strcat(current_keyspace_path, directory);
+  strcat(current_keyspace_path, "/Keyspaces");
   strcat(current_keyspace_path, "/");
   strcat(current_keyspace_path, r);
   //}
@@ -852,7 +853,6 @@ json_t *select_rows_in(json_t *data) {
 
 void interpret_select() {
   if(keyspace_is_used) {
-
     json_error_t error;
     json_t *root;
     json_t *data;

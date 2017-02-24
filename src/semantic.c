@@ -19,12 +19,14 @@ grant_t             *current_grant     = NULL;
 column_t* is_exist_table(char* nomTable , int flag)
 {
     bool exist = true;
-    //FILE *f = fopen(nomTable, "r");
-    if(fopen(nomTable, "r") == NULL) exist = false;
-    //fclose(f);
+    FILE *f = fopen(nomTable, "r");
+    if(f == NULL) exist = false;
+    //if(fopen(nomTable, "r") == NULL) exist = false;
+    fclose(f);
     if ( flag == 0)
     {
-        return  exist == false ? NULL : create_column(nomTable, STRING_TOKEN);
+        //return  exist == false ? NULL : create_column(nomTable, STRING_TOKEN);
+        return  exist == false ? NULL : create_column("exist", NULL_TOKEN);
     }
     else
     {

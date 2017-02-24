@@ -1,4 +1,4 @@
-/*
+
 
 CREATE KEYSPACE myKeyspace1
   WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
@@ -60,7 +60,7 @@ CREATE TABLE DogTypes (
 ) WITH compression =
     { 'sstable_compression' : 'DeflateCompressor', 'chunk_length_kb' : 64 }
   AND compaction =
-    { 'class' : 'SizeTieredCompactionStrategy', 'min_threshold' : 6 }; */
+    { 'class' : 'SizeTieredCompactionStrategy', 'min_threshold' : 6 };
 
 
 use MYKEYSPACE1;
